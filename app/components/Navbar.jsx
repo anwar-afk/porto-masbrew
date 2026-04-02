@@ -18,10 +18,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">AF</span>
-            </div>
-            <span className="text-white font-bold text-lg">Anwar Faiz</span>
+            <span className="text-white font-bold text-lg">Anwar Faiz's Portfolio</span>
           </div>
 
           {/* Desktop Menu */}

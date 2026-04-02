@@ -5,6 +5,7 @@ import TextType from "./components/TextType";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Particles from "./components/Particles";
+import Footer from "./components/Footer";
 
 export default function Hero() {
   return (
@@ -79,6 +80,9 @@ export default function Hero() {
 
       {/* Projects Component */}
       <Projects />
+
+      {/* Footer Component */}
+      <Footer />
     </>
   );
 }
