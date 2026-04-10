@@ -38,6 +38,7 @@ const CardSwapComponent = forwardRef(({
   delay = 5000,
   pauseOnHover = false,
   onCardClick,
+  onSwapComplete,
   skewAmount = 6,
   easing = 'elastic',
   children
@@ -74,13 +75,16 @@ const CardSwapComponent = forwardRef(({
   const intervalRef = useRef();
   const container = useRef(null);
   const swapFuncRef = useRef(null);
+  const isSwappingRef = useRef(false);
 
   useImperativeHandle(ref, () => ({
     swap: () => {
       if (swapFuncRef.current) {
-        swapFuncRef.current();
+        return swapFuncRef.current();
       }
-    }
+      return false;
+    },
+    getOrder: () => order.current
   }));
 
   useEffect(() => {
@@ -88,10 +92,13 @@ const CardSwapComponent = forwardRef(({
     refs.forEach((r, i) => placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount));
 
     const swap = () => {
-      if (order.current.length < 2) return;
+      if (order.current.length < 2 || isSwappingRef.current) return false;
 
       const [front, ...rest] = order.current;
       const elFront = refs[front].current;
+      if (!elFront) return false;
+
+      isSwappingRef.current = true;
       const tl = gsap.timeline();
       tlRef.current = tl;
 
@@ -140,13 +147,21 @@ const CardSwapComponent = forwardRef(({
         'return'
       );
 
-      tl.call(() => {
+      tl.eventCallback('onComplete', () => {
         order.current = [...rest, front];
+        isSwappingRef.current = false;
+        onSwapComplete?.(order.current);
       });
+
+      tl.eventCallback('onInterrupt', () => {
+        isSwappingRef.current = false;
+      });
+
+      return true;
     };
 
     swapFuncRef.current = swap;
-    swap();
+    onSwapComplete?.(order.current);
     intervalRef.current = window.setInterval(swap, delay);
 
     if (pauseOnHover) {
@@ -165,11 +180,15 @@ const CardSwapComponent = forwardRef(({
         node.removeEventListener('mouseenter', pause);
         node.removeEventListener('mouseleave', resume);
         clearInterval(intervalRef.current);
+        tlRef.current?.kill();
       };
     }
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      clearInterval(intervalRef.current);
+      tlRef.current?.kill();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
+  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, onSwapComplete]);
 
   const rendered = childArr.map((child, i) =>
     isValidElement(child)

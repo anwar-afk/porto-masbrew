@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import CardSwap, { Card } from './CardSwap';
+import Carousel from './Carousel';
+import TextType from './TextType';
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
-  const cardSwapRef = useRef(null);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const carouselRef = useRef(null);
   const githubButtonClass =
     'px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors text-center border-0';
 
@@ -25,152 +27,130 @@ export default function Projects() {
     },
     {
       id: 2,
-      title: 'Dashboard Analytics',
-      description: 'Dashboard interaktif untuk monitoring data real-time dengan visualisasi grafik yang menarik.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop',
-      mockupImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-      technologies: ['React', 'JavaScript', 'Tailwind CSS'],
-      fullDescription: 'Dashboard analytics yang canggih untuk visualisasi data real-time dengan berbagai jenis grafik. Fitur filtering dan export data untuk analisis mendalam.',
-      link: '#'
+      title: 'GMERA',
+      description: 'Company profile perusahaan distribusi peralatan kompor dengan fitur homepage dan katalog produk lengkap.',
+      image: '/assets/images/gmeraflayer.png',
+      mockupImage: '/assets/images/gmeraflayer.png',
+      technologies: ['Laravel', 'Tailwind CSS', 'Figma'],
+      fullDescription: 'GMERA adalah website company profile untuk perusahaan distribusi peralatan kompor terpercaya. Platform ini menampilkan informasi perusahaan lengkap, katalog produk berkualitas tinggi dengan kategori lengkap, dan memudahkan pelanggan untuk mengetahui lebih jauh tentang produk dan layanan distribusi kami. Dilengkapi dengan sistem navigasi yang intuitif dan desain responsif untuk pengalaman pengguna terbaik di semua perangkat.',
+      link: 'https://github.com/anwar-afk/gmera-web'
     },
     {
       id: 3,
-      title: 'Social Media App',
-      description: 'Aplikasi media sosial dengan fitur posting, komentar, dan sistem notifikasi real-time.',
-      image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=500&h=300&fit=crop',
-      mockupImage: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=600&fit=crop',
-      technologies: ['Next.js', 'Laravel', 'JavaScript'],
-      fullDescription: 'Aplikasi media sosial dengan fitur lengkap termasuk posting, komentar, like, dan sistem notifikasi real-time. Dilengkapi dengan messaging dan user profile.',
-      link: '#'
+      title: 'Web Donasi Syakira Mutiara',
+      description: 'Web yayasan Syakira Mutiara dengan fitur donasi yang sudah menggunakan payment gateway terintegrasi.',
+      image: '/assets/images/FlayerSyakira.png',
+      mockupImage: '/assets/images/FlayerSyakira.png',
+      technologies: ['Express', 'React', 'Tailwind CSS', 'Figma'],
+      fullDescription: 'Web Donasi Syakira Mutiara adalah platform untuk yayasan Syakira Mutiara yang memudahkan donatur untuk berkontribusi langsung melalui sistem donasi online yang aman. Platform ini dilengkapi dengan payment gateway terintegrasi untuk berbagai metode pembayaran, dashboard donasi real-time, dan fitur transparansi untuk menunjukkan perkembangan program sosial. Dirancang dengan antarmuka yang ramah pengguna dan responsif untuk mendukung maksimalisasi donasi demi kebaikan bersama.',
+      link: 'https://github.com/anwar-afk/syakira-web'
+    },
+    {
+      id: 4,
+      title: 'Aqsal Electric Company Profile',
+      description: 'Company profile toko elektrik dengan fitur admin untuk memantau performa toko dan sistem pemesanan online.',
+      image: '/assets/images/FlayerAqsal.png',
+      mockupImage: '/assets/images/FlayerAqsal.png',
+      technologies: ['Laravel', 'JavaScript', 'Figma', 'CSS'],
+      fullDescription: 'Aqsal Electric Company Profile adalah website company profile untuk toko elektrik dengan fitur admin dashboard yang komprehensif. Admin dapat memantau performa toko secara real-time, mengelola inventori produk, dan melacak pesanan pelanggan. Platform ini dilengkapi dengan sistem pemesanan online yang mudah digunakan, katalog produk lengkap dengan kategori terorganisir, dan sistem notifikasi untuk update pesanan. Dirancang untuk meningkatkan efisiensi operasional toko dan pengalaman berbelanja pelanggan.',
+      github: 'https://github.com/azhura-bot/aqsal-electric',
+      link: 'https://github.com/azhura-bot/aqsal-electric'
     },
   ];
+
+  const carouselItems = projects.map((project) => ({
+    id: project.id,
+    content: (
+      <div
+        className="w-[500px] h-[500px] p-6 rounded-xl border border-white bg-gradient-to-br from-gray-900 to-black cursor-pointer overflow-hidden"
+        onClick={() => setSelectedProject(project)}
+      >
+        <div className="relative h-56 overflow-hidden rounded-lg mb-4">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
+          <p className="text-gray-300 text-sm mb-4 line-clamp-2">{project.description}</p>
+
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.technologies.map((tech, idx) => (
+              <span
+                key={idx}
+                className="px-2 py-1 text-xs bg-purple-500/30 text-purple-300 rounded border border-purple-500/50"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedProject(project);
+            }}
+            className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors text-sm"
+          >
+            Lihat Detail →
+          </button>
+        </div>
+      </div>
+    )
+  }));
 
   return (
     <div className="w-full bg-black py-16 md:py-24 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
-        {/* Projects Section with Text and CardSwap */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-16 mb-8">
+        {/* Projects Section with Text and Carousel */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-16 mb-8">
           {/* Left Side - Text Content */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                Ini Adalah Project Saya
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                Saya telah mengembangkan berbagai proyek menarik yang menunjukkan keahlian saya dalam web development, UI/UX design, dan problem solving. Setiap proyek dirancang dengan perhatian terhadap detail dan best practices modern.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-purple-400 font-bold">1</span>
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold mb-1">Marketplace Ternak Ikan</h4>
-                  <p className="text-gray-400 text-sm">Platform jual beli ikan ternak dengan sistem pembayaran aman dan terpercaya</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-purple-400 font-bold">2</span>
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold mb-1">Panduan & Edukasi</h4>
-                  <p className="text-gray-400 text-sm">Konten edukatif lengkap untuk calon peternak dan pengembangan bisnis peternakan</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-purple-400 font-bold">3</span>
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold mb-1">Chat & Komunitas</h4>
-                  <p className="text-gray-400 text-sm">Chat real-time, forum diskusi, dan artikel untuk berbagi pengalaman antar peternak</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-6">
-              <button 
-                onClick={() => cardSwapRef.current?.swap()}
-                className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
-              >
-                <span>Swap Kartu</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-                </svg>
-              </button>
+              <TextType
+                key={`project-title-${currentProjectIndex}`}
+                text={projects[currentProjectIndex].title}
+                as="h3"
+                typingSpeed={18}
+                deletingSpeed={12}
+                pauseDuration={200}
+                initialDelay={0}
+                loop={false}
+                showCursor={true}
+                cursorClassName="text-purple-400"
+                className="text-2xl md:text-3xl font-bold text-white mb-3"
+              />
+              <TextType
+                key={`project-description-${currentProjectIndex}`}
+                text={projects[currentProjectIndex].fullDescription}
+                as="p"
+                typingSpeed={1}
+                deletingSpeed={1}
+                pauseDuration={200}
+                initialDelay={20}
+                loop={false}
+                showCursor={false}
+                className="text-gray-300 text-lg leading-relaxed mb-4"
+              />
             </div>
           </div>
 
-          {/* Right Side - CardSwap */}
+          {/* Right Side - Carousel */}
           <div className="flex flex-col items-center gap-8">
-            <div className="relative h-[600px] w-full max-w-[500px]">
-              <CardSwap
-              ref={cardSwapRef}
-              width={500}
-              height={500}
-              cardDistance={80}
-              verticalDistance={100}
-              delay={100000}
-              pauseOnHover={true}
-              skewAmount={4}
-              easing="elastic"
-            >
-              {projects.map((project) => (
-                <Card
-                  key={project.id}
-                  customClass="w-[500px] h-[500px] p-6 bg-gradient-to-br from-gray-900 to-black cursor-pointer overflow-hidden"
-                  onClick={() => setSelectedProject(project)}
-                >
-                  {/* Project Image */}
-                  <div className="relative h-56 overflow-hidden rounded-lg mb-4">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-                  </div>
-
-                  {/* Project Info */}
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-300 text-sm mb-4 line-clamp-2">
-                      {project.description}
-                    </p>
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-2 py-1 text-xs bg-purple-500/30 text-purple-300 rounded border border-purple-500/50"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Action Button */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedProject(project);
-                      }}
-                      className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors text-sm"
-                    >
-                      Lihat Detail →
-                    </button>
-                  </div>
-                </Card>
-              ))}
-            </CardSwap>
+            <div className="relative h-[560px] w-full max-w-[540px]">
+              <Carousel
+                ref={carouselRef}
+                items={carouselItems}
+                baseWidth={540}
+                loop={true}
+                autoplay={false}
+                pauseOnHover={true}
+                onIndexChange={(index) => setCurrentProjectIndex(index)}
+              />
             </div>
           </div>
         </div>

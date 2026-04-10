@@ -1,16 +1,61 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('#home');
 
   const navLinks = [
     { name: 'Home', href: '#home' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Tentang', href: '#about' },
+    { name: 'Skill', href: '#about' },
+    { name: 'Projek', href: '#portfolio' },
     { name: 'Kontak', href: '#contact' },
   ];
+
+  useEffect(() => {
+    const sectionIds = navLinks.map((link) => link.href.replace('#', ''));
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry?.target?.id) {
+          setActiveLink(`#${visibleEntry.target.id}`);
+        }
+      },
+      {
+        rootMargin: '-35% 0px -55% 0px',
+        threshold: [0.1, 0.3, 0.6],
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+      observer.disconnect();
+    };
+  }, []);
+
+  const handleNavClick = (event, href) => {
+    event.preventDefault();
+
+    const id = href.replace('#', '');
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    const navOffset = 88;
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - navOffset;
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    setActiveLink(href);
+    setIsOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 w-full bg-gradient-to-b from-black to-black/80 backdrop-blur-md border-b border-gray-800 z-50">
@@ -27,7 +72,10 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+                onClick={(event) => handleNavClick(event, link.href)}
+                className={`transition-colors duration-200 text-sm font-medium ${
+                  activeLink === link.href ? 'text-white' : 'text-gray-300 hover:text-white'
+                }`}
               >
                 {link.name}
               </a>
@@ -62,8 +110,12 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="block text-gray-300 hover:text-white hover:bg-gray-800/50 px-4 py-2 rounded-lg transition-colors duration-200 text-sm font-medium"
-                onClick={() => setIsOpen(false)}
+                className={`block px-4 py-2 rounded-lg transition-colors duration-200 text-sm font-medium ${
+                  activeLink === link.href
+                    ? 'text-white bg-gray-800/70'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                }`}
+                onClick={(event) => handleNavClick(event, link.href)}
               >
                 {link.name}
               </a>

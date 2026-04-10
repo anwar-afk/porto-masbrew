@@ -11,7 +11,8 @@ export default function Hero() {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative min-h-screen flex items-center justify-center overflow-x-hidden px-4 md:px-8 pt-20">
+      <section id="home" className="scroll-mt-24">
+        <div className="relative min-h-screen flex items-center justify-center overflow-x-hidden px-4 md:px-8 pt-20">
         {/* Particles Background */}
         <div className="absolute inset-0 z-0">
           <Particles
@@ -73,16 +74,23 @@ export default function Hero() {
             />
           </div>
         </div>
-      </div>
+        </div>
+      </section>
 
       {/* Skills Component */}
-      <Skills />
+      <section id="about" className="scroll-mt-24">
+        <Skills />
+      </section>
 
       {/* Projects Component */}
-      <Projects />
+      <section id="portfolio" className="scroll-mt-24">
+        <Projects />
+      </section>
 
       {/* Footer Component */}
-      <Footer />
+      <section id="contact" className="scroll-mt-24">
+        <Footer />
+      </section>
     </>
   );
 }
