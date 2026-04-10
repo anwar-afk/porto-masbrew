@@ -6,17 +6,22 @@ import CardSwap, { Card } from './CardSwap';
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const cardSwapRef = useRef(null);
+  const githubButtonClass =
+    'px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors text-center border-0';
 
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'Platform e-commerce modern dengan fitur katalog produk, keranjang belanja, dan sistem pembayaran.',
-      image: 'https://images.unsplash.com/photo-1460925895917-adf4b655bda1?w=500&h=300&fit=crop',
-      mockupImage: 'https://images.unsplash.com/photo-1460925895917-adf4b655bda1?w=800&h=600&fit=crop',
-      technologies: ['React', 'Next.js', 'Tailwind CSS'],
-      fullDescription: 'Platform e-commerce lengkap dengan sistem katalog produk yang dinamis, keranjang belanja interaktif, dan integrasi sistem pembayaran. Dirancang dengan performa tinggi dan user experience yang optimal.',
-      link: '#'
+      title: 'PERKASA',
+      description: 'Ekosistem digital komprehensif untuk industri peternakan ikan dengan marketplace, panduan, chat real-time, dan komunitas.',
+      image: '/assets/images/perkasa.png',
+      mockupImage: '/assets/images/perkasa.png',
+      technologies: ['Nuxt', 'Laravel', 'Tailwind CSS', 'Android Studio', 'Java'],
+      fullDescription: 'PERKASA adalah platform digital yang mengintegrasikan seluruh ekosistem industri peternakan ikan modern. Menghubungkan peternak, pembeli, dan komunitas melalui marketplace yang aman, panduan lengkap untuk calon peternak, sistem chat real-time untuk konsultasi langsung, forum komunitas aktif untuk berbagi pengalaman, dan perpustakaan artikel edukatif berkualitas tinggi. Solusi komprehensif yang memberdayakan petani ikan Indonesia untuk berkembang lebih cepat dan berkelanjutan.',
+      github: 'https://github.com/muzalri/perkasa-1',
+      githubLaravel: 'https://github.com/muzalri/PERKASA_Laravel',
+      githubMobile: 'https://github.com/muzalri/PERKASA_MOBILE',
+      link: 'https://github.com/muzalri/perkasa-1'
     },
     {
       id: 2,
@@ -62,8 +67,8 @@ export default function Projects() {
                   <span className="text-purple-400 font-bold">1</span>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">E-Commerce Platform</h4>
-                  <p className="text-gray-400 text-sm">Platform e-commerce modern dengan fitur lengkap untuk bisnis online</p>
+                  <h4 className="text-white font-semibold mb-1">Marketplace Ternak Ikan</h4>
+                  <p className="text-gray-400 text-sm">Platform jual beli ikan ternak dengan sistem pembayaran aman dan terpercaya</p>
                 </div>
               </div>
 
@@ -72,8 +77,8 @@ export default function Projects() {
                   <span className="text-purple-400 font-bold">2</span>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">Dashboard Analytics</h4>
-                  <p className="text-gray-400 text-sm">Dashboard interaktif untuk monitoring data real-time dengan visualisasi grafik</p>
+                  <h4 className="text-white font-semibold mb-1">Panduan & Edukasi</h4>
+                  <p className="text-gray-400 text-sm">Konten edukatif lengkap untuk calon peternak dan pengembangan bisnis peternakan</p>
                 </div>
               </div>
 
@@ -82,8 +87,8 @@ export default function Projects() {
                   <span className="text-purple-400 font-bold">3</span>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">Social Media App</h4>
-                  <p className="text-gray-400 text-sm">Aplikasi media sosial dengan fitur posting, komentar, dan notifikasi real-time</p>
+                  <h4 className="text-white font-semibold mb-1">Chat & Komunitas</h4>
+                  <p className="text-gray-400 text-sm">Chat real-time, forum diskusi, dan artikel untuk berbagi pengalaman antar peternak</p>
                 </div>
               </div>
             </div>
@@ -236,13 +241,37 @@ export default function Projects() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-4 pt-6">
-                <button className="flex-1 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors">
-                  Lihat Live Demo
-                </button>
-                <button className="flex-1 px-6 py-3 border border-purple-500 text-purple-400 hover:bg-purple-500/10 font-semibold rounded-lg transition-colors">
-                  GitHub Repository
-                </button>
+              <div className="grid grid-cols-1 gap-3 pt-6">
+                {selectedProject.github && (
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={githubButtonClass}
+                  >
+                    GitHub Frontend (Nuxt)
+                  </a>
+                )}
+                {selectedProject.githubLaravel && (
+                  <a
+                    href={selectedProject.githubLaravel}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={githubButtonClass}
+                  >
+                    GitHub Backend (Laravel)
+                  </a>
+                )}
+                {selectedProject.githubMobile && (
+                  <a
+                    href={selectedProject.githubMobile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={githubButtonClass}
+                  >
+                    GitHub Mobile
+                  </a>
+                )}
               </div>
             </div>
           )}
