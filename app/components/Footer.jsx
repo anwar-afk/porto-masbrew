@@ -9,17 +9,17 @@ export default function Footer() {
     {
       name: 'GitHub',
       icon: FaGithub,
-      url: 'https://github.com',
+      url: 'https://github.com/anwar-afk',
     },
     {
       name: 'LinkedIn',
       icon: FaLinkedin,
-      url: 'https://linkedin.com',
+      url: 'https://linkedin.com/in/anwar-faiz',
     },
     {
       name: 'Twitter',
       icon: FaTwitter,
-      url: 'https://twitter.com',
+      url: 'https://twitter.com/anwarafk',
     },
   ];
 
