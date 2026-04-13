@@ -17,7 +17,7 @@ export default function Projects() {
       title: 'PERKASA',
       description: 'Ekosistem digital komprehensif untuk industri peternakan ikan dengan marketplace, panduan, chat real-time, dan komunitas.',
       image: '/assets/images/perkasa.png',
-      mockupImage: '/assets/images/perkasa.png',
+      mockupImage: '/assets/images/Perkasa.png',
       technologies: ['Nuxt', 'Laravel', 'Tailwind CSS', 'Android Studio', 'Java'],
       fullDescription: 'PERKASA adalah platform digital yang mengintegrasikan seluruh ekosistem industri peternakan ikan modern. Menghubungkan peternak, pembeli, dan komunitas melalui marketplace yang aman, panduan lengkap untuk calon peternak, sistem chat real-time untuk konsultasi langsung, forum komunitas aktif untuk berbagi pengalaman, dan perpustakaan artikel edukatif berkualitas tinggi. Solusi komprehensif yang memberdayakan petani ikan Indonesia untuk berkembang lebih cepat dan berkelanjutan.',
       github: 'https://github.com/muzalri/perkasa-1',
