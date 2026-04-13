@@ -10,6 +10,12 @@ export default function Projects() {
   const carouselRef = useRef(null);
   const githubButtonClass =
     'px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors text-center border-0';
+  const projectLinkConfig = [
+    { key: 'link', label: 'Website / Demo' },
+    { key: 'github', label: 'GitHub' },
+    { key: 'githubLaravel', label: 'GitHub Backend (Laravel)' },
+    { key: 'githubMobile', label: 'GitHub Mobile' }
+  ];
 
   const projects = [
     {
@@ -60,8 +66,8 @@ export default function Projects() {
       id: 5,
       title: 'Website Hitung Cekih',
       description: 'Website untuk bermain cekih.',
-      image: '/assets/images/FlayerAqsal.png',
-      mockupImage: '/assets/images/FlayerAqsal.png',
+      image: '/assets/images/HitungCekih.png',
+      mockupImage: '/assets/images/HitungCekih.png',
       technologies: ['React', 'JavaScript', 'CSS'],
       fullDescription: 'Website Hitung Cekih adalah website interaktif untuk bermain cekih dengan antarmuka sederhana, responsif, dan mudah digunakan.',
       github: 'https://github.com/anwar-afk/hitung-cekih',
@@ -233,36 +239,26 @@ export default function Projects() {
 
               {/* Action Buttons */}
               <div className="grid grid-cols-1 gap-3 pt-6">
-                {selectedProject.github && (
-                  <a
-                    href={selectedProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={githubButtonClass}
-                  >
-                    GitHub Frontend (Nuxt)
-                  </a>
-                )}
-                {selectedProject.githubLaravel && (
-                  <a
-                    href={selectedProject.githubLaravel}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={githubButtonClass}
-                  >
-                    GitHub Backend (Laravel)
-                  </a>
-                )}
-                {selectedProject.githubMobile && (
-                  <a
-                    href={selectedProject.githubMobile}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={githubButtonClass}
-                  >
-                    GitHub Mobile
-                  </a>
-                )}
+                {projectLinkConfig.map((item) => {
+                  const url = selectedProject[item.key];
+                  const label = url?.includes('github.com') ? 'GitHub' : item.label;
+
+                  if (!url) {
+                    return null;
+                  }
+
+                  return (
+                    <a
+                      key={`${selectedProject.id}-${item.key}`}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={githubButtonClass}
+                    >
+                      {label}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           )}
