@@ -68,7 +68,7 @@ export default function Hero() {
               title="Student"
               handle="yourhandle"
               status="Online"
-              avatarUrl="public/assets/images/avatar.png"
+              avatarUrl="/assets/images/FotoFaiz.jpeg"
               contactText="Contact Me"
               onContactClick={() => console.log('Contact clicked')}
             />
