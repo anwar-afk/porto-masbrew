@@ -56,6 +56,17 @@ export default function Projects() {
       github: 'https://github.com/azhura-bot/aqsal-electric',
       link: 'https://github.com/azhura-bot/aqsal-electric'
     },
+    {
+      id: 5,
+      title: 'Website Hitung Cekih',
+      description: 'Website untuk bermain cekih.',
+      image: '/assets/images/FlayerAqsal.png',
+      mockupImage: '/assets/images/FlayerAqsal.png',
+      technologies: ['React', 'JavaScript', 'CSS'],
+      fullDescription: 'Website Hitung Cekih adalah website interaktif untuk bermain cekih dengan antarmuka sederhana, responsif, dan mudah digunakan.',
+      github: 'https://github.com/anwar-afk/hitung-cekih',
+      link: 'https://hitung-cekih.vercel.app/'
+    },
   ];
 
   const carouselItems = projects.map((project) => ({
